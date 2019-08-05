@@ -17,14 +17,79 @@
                     <view key="view" contentMode="scaleToFill" id="yrz-tI-AYy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gm-ly-9ff">
+                                <rect key="frame" x="0.0" y="64" width="414" height="150"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Placeholder-image" translatesAutoresizingMaskIntoConstraints="NO" id="Uob-Rt-Su4">
+                                        <rect key="frame" x="10" y="10" width="130" height="130"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="130" id="819-xs-CFz"/>
+                                            <constraint firstAttribute="height" constant="130" id="TIX-On-Sso"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Caption" translatesAutoresizingMaskIntoConstraints="NO" id="Nw0-Qp-XDb">
+                                        <rect key="frame" x="150" y="10" width="254" height="130"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Uob-Rt-Su4" firstAttribute="top" secondItem="5gm-ly-9ff" secondAttribute="top" constant="10" id="3Jw-wf-Fj8"/>
+                                    <constraint firstAttribute="bottom" secondItem="Uob-Rt-Su4" secondAttribute="bottom" constant="10" id="BES-7t-5iu"/>
+                                    <constraint firstItem="Uob-Rt-Su4" firstAttribute="leading" secondItem="5gm-ly-9ff" secondAttribute="leading" constant="10" id="EX6-qF-FfD"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nw0-Qp-XDb" secondAttribute="trailing" constant="10" id="blZ-13-re0"/>
+                                    <constraint firstAttribute="height" constant="150" id="kCZ-h6-XAq"/>
+                                    <constraint firstItem="Nw0-Qp-XDb" firstAttribute="leading" secondItem="Uob-Rt-Su4" secondAttribute="trailing" constant="10" id="ufB-Ch-3Fr"/>
+                                    <constraint firstAttribute="bottom" secondItem="Nw0-Qp-XDb" secondAttribute="bottom" constant="10" id="wvr-8g-GVS"/>
+                                    <constraint firstItem="Nw0-Qp-XDb" firstAttribute="top" secondItem="5gm-ly-9ff" secondAttribute="top" constant="10" id="xHt-6q-POh"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opb-wu-meu">
+                                <rect key="frame" x="10" y="676" width="394" height="50"/>
+                                <color key="backgroundColor" red="0.45489977520000002" green="0.34145282339999999" blue="0.574860394" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="IT2-2z-Qd0"/>
+                                </constraints>
+                                <state key="normal" title="Share">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareButtonPressed:" destination="eTS-ar-4TZ" eventType="touchUpInside" id="agf-KX-YQm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5gm-ly-9ff" firstAttribute="top" secondItem="eSs-1n-efD" secondAttribute="top" id="D6s-lG-XIA"/>
+                            <constraint firstItem="eSs-1n-efD" firstAttribute="trailing" secondItem="opb-wu-meu" secondAttribute="trailing" constant="10" id="F2V-7H-yxI"/>
+                            <constraint firstItem="opb-wu-meu" firstAttribute="leading" secondItem="eSs-1n-efD" secondAttribute="leading" constant="10" id="HpI-Yd-dlr"/>
+                            <constraint firstItem="5gm-ly-9ff" firstAttribute="trailing" secondItem="eSs-1n-efD" secondAttribute="trailing" id="LMY-cE-ZLR"/>
+                            <constraint firstItem="eSs-1n-efD" firstAttribute="bottom" secondItem="opb-wu-meu" secondAttribute="bottom" constant="10" id="ofo-kD-EJT"/>
+                            <constraint firstItem="5gm-ly-9ff" firstAttribute="leading" secondItem="eSs-1n-efD" secondAttribute="leading" id="zzf-Xf-UDV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="eSs-1n-efD"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Photo" id="JXB-wi-Cbd"/>
+                    <navigationItem key="navigationItem" title="Photo" id="JXB-wi-Cbd">
+                        <barButtonItem key="leftBarButtonItem" title="Remove" id="2O7-hu-gsK">
+                            <color key="tintColor" red="0.45489977520000002" green="0.34145282339999999" blue="0.574860394" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="removeButtonPressed:" destination="eTS-ar-4TZ" id="eM4-iX-YKX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="captionTextView" destination="Nw0-Qp-XDb" id="HrI-KE-4K5"/>
+                        <outlet property="photoView" destination="Uob-Rt-Su4" id="aBR-aI-1o4"/>
+                        <outlet property="removeButton" destination="2O7-hu-gsK" id="A1R-bO-ZI0"/>
+                        <outlet property="shareButton" destination="opb-wu-meu" id="qYN-D6-H9Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tKv-Ko-Bgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-190" y="-951"/>
+            <point key="canvasLocation" x="-191.30434782608697" y="-951.35869565217399"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="w9a-Ei-RK1">
@@ -50,5 +115,6 @@
     </scenes>
     <resources>
         <image name="Photo" width="22" height="23"/>
+        <image name="Placeholder-image" width="840" height="600"/>
     </resources>
 </document>

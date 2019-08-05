@@ -29,11 +29,23 @@ class SignInViewController: UIViewController {
         handleTextField()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if Auth.auth().currentUser != nil {
+            self.performSegue(withIdentifier: "signInToTabBarId", sender: nil)
+        }
+    }
+    
     func handleTextField() {
         signInButton.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
         signInButton.isEnabled = false
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: UIControl.Event.editingChanged)
         emailTextField.addTarget(self, action: #selector(textFieldDidChange), for: UIControl.Event.editingChanged)
+    }
+    
+    // Force dismiss keyboard if background is pressed
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     
     @objc func textFieldDidChange() {
@@ -48,13 +60,19 @@ class SignInViewController: UIViewController {
     
     @IBAction func signInButtonPressed(_ sender: UIButton) {
         
+        view.endEditing(true)
+        ProgressHUD.show("Waiting", interaction: false)
+        
         guard let userEmail = emailTextField.text else { return }
         guard let userPassword = passwordTextField.text else { return }
         
+        
         Auth.auth().signIn(withEmail: userEmail, password: userPassword) { (user, error) in
             if error != nil {
+                ProgressHUD.showError(error?.localizedDescription)
                 return
             }
+            ProgressHUD.showSuccess("Success")
             self.performSegue(withIdentifier: "signInToTabBarId", sender: nil)
         }
     }

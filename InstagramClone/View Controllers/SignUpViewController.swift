@@ -69,6 +69,11 @@ class SignUpViewController: UIViewController {
         emailTextField.addTarget(self, action: #selector(textFieldDidChange), for: UIControl.Event.editingChanged)
     }
     
+    // Force dismiss keyboard if background is pressed
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     @objc func textFieldDidChange() {
         guard let username = usernameTextField.text, !username.isEmpty, let password = passwordTextField.text, !password.isEmpty, let email = emailTextField.text, !email.isEmpty else {
             signUpButton.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
@@ -92,6 +97,9 @@ class SignUpViewController: UIViewController {
     
     @IBAction func signUpButtonPressed(_ sender: UIButton) {
         
+        view.endEditing(true)
+        ProgressHUD.show("Waiting", interaction: false)
+        
         guard let userEmail = emailTextField.text else { return }
         guard let userPassword = passwordTextField.text else { return }
         guard let userName = usernameTextField.text else { return }
@@ -99,7 +107,7 @@ class SignUpViewController: UIViewController {
         Auth.auth().createUser(withEmail: userEmail, password: userPassword) { (authDataResult, error) in
             if error != nil {
                 if let descError = error?.localizedDescription {
-                    print(descError)
+                   ProgressHUD.showError(descError)
                 }
                 return
             }
@@ -112,7 +120,9 @@ class SignUpViewController: UIViewController {
                 self.storageRef.child("profileImage").child(user.uid).downloadURL(completion: { (url, error) in
                     guard let downloadURL = url else { return }
                     self.ref.child("users").child(user.uid).setValue(["username" : userName, "email" : userEmail, "profileImageUrl" : downloadURL.absoluteString])
-                    self.performSegue(withIdentifier: "signUpToTabBarId", sender: nil)
+                    
+                    ProgressHUD.showSuccess("Success")
+                    self.dismiss(animated: true, completion: nil)
                 })
             })
         }

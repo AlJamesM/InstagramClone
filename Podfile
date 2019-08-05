@@ -11,4 +11,5 @@ target 'InstagramClone' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'SDWebImage', '~> 5.0'
 end
