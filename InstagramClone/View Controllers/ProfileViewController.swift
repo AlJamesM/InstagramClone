@@ -12,10 +12,21 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var user: User!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
-        collectionView.delegate = self
+        collectionView.delegate   = self
+        
+        fetchUser()
+    }
+    
+    func fetchUser() {
+        Api.User.observeCurrentUser { (user) in
+            self.user = user
+            self.collectionView.reloadData()
+        }
     }
 }
 
@@ -31,7 +42,9 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerViewCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "collectionViewHeaderId", for: indexPath) as! HeaderProfileCollectionReusableView
-            headerViewCell.updateView()
+        if let user = self.user {
+            headerViewCell.user = user
+        }
         return headerViewCell
     }
 }

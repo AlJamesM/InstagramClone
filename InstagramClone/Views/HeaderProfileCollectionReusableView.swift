@@ -16,21 +16,18 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var followingCountLabel: UILabel!
     @IBOutlet weak var followersCountLabel: UILabel!
     
+    var user: User? {
+        didSet {
+            updateView()
+        }
+    }
+    
     func updateView() {
-        Api.User.REF_CURRENT_USER?.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let dict = snapshot.value as? [String: Any] {
-                let user = User.transformUser(dict: dict)
-                self.nameLabel.text = user.username
-                if let photoUrlString = user.profileImageUrl {
-                    let photoUrl = URL(string: photoUrlString)
-                    self.profileImageView.sd_setImage(with: photoUrl)
-                }
-            }
-        })
-        
-        
-        
-        
+        self.nameLabel.text = user!.username
+        if let photoUrlString = user!.profileImageUrl {
+            let photoUrl = URL(string: photoUrlString)
+            self.profileImageView.sd_setImage(with: photoUrl)
+        }
     }
     
     @IBAction func editProfilePressed(_ sender: UIButton) {
