@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
     var user: User!
+    var posts: [Post] = [Post]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,7 @@ class ProfileViewController: UIViewController {
         collectionView.delegate   = self
         
         fetchUser()
+        fetchUserPost()
     }
     
     func fetchUser() {
@@ -28,15 +31,28 @@ class ProfileViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
+    
+    func fetchUserPost() {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        Api.UserPost.REF_USER_POST.child(currentUser.uid).observe(.childAdded) { (snapshot) in
+            Api.Post.observePost(withId: snapshot.key, completion: { (post) in
+                self.posts.append(post)
+                self.collectionView.reloadData()
+            })
+        }
+    }
 }
 
 extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCellViewId", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCellViewId", for: indexPath) as! PhotoCollectionViewCell
+        
+        let post = posts[indexPath.row]
+        cell.post = post
         return cell
     }
     
@@ -46,5 +62,19 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
             headerViewCell.user = user
         }
         return headerViewCell
+    }
+}
+
+extension ProfileViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize.init(width: collectionView.frame.size.width/3 - 0.5, height: collectionView.frame.size.width/3 - 0.5)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }

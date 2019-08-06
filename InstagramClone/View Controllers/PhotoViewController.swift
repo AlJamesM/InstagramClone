@@ -102,6 +102,15 @@ class PhotoViewController: UIViewController {
             if error != nil {
                 ProgressHUD.showError(error!.localizedDescription)
             }
+            
+            let userPostRef = Api.UserPost.REF_USER_POST.child(currentUserId).child(newPostId)
+            userPostRef.setValue(true, withCompletionBlock: { (error, ref) in
+                if error != nil {
+                    ProgressHUD.showError(error!.localizedDescription)
+                    return
+                }
+            })
+            
             ProgressHUD.showSuccess("Success")
             self.captionTextView.text = ""
             self.selectedImage = nil

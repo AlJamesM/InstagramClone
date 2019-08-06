@@ -40,6 +40,8 @@
 		C094DEEE22F6037100CD166C /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = C094DEED22F6037100CD166C /* Api.swift */; };
 		C094DEF022F6040400CD166C /* CommentApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C094DEEF22F6040400CD166C /* CommentApi.swift */; };
 		C0A2A51B22F9CB18006B2944 /* HeaderProfileCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A51A22F9CB18006B2944 /* HeaderProfileCollectionReusableView.swift */; };
+		C0A2A51E22F9E913006B2944 /* UserPostApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A51D22F9E913006B2944 /* UserPostApi.swift */; };
+		C0A2A52022F9F8F2006B2944 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A51F22F9F8F2006B2944 /* PhotoCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		C094DEED22F6037100CD166C /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		C094DEEF22F6040400CD166C /* CommentApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentApi.swift; sourceTree = "<group>"; };
 		C0A2A51A22F9CB18006B2944 /* HeaderProfileCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderProfileCollectionReusableView.swift; sourceTree = "<group>"; };
+		C0A2A51D22F9E913006B2944 /* UserPostApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostApi.swift; sourceTree = "<group>"; };
+		C0A2A51F22F9F8F2006B2944 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		C8B5A6240B1E1F35EFCF6C92 /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB604C441820DF9A3F9C77CC /* Pods-InstagramClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.release.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,10 +140,7 @@
 			children = (
 				C094DE9F22EFB1D700CD166C /* AppDelegate.swift */,
 				C094DED122F022D200CD166C /* Util.swift */,
-				C094DEE922F5FDEA00CD166C /* PostApi.swift */,
-				C094DEEB22F600EF00CD166C /* UserApi.swift */,
-				C094DEEF22F6040400CD166C /* CommentApi.swift */,
-				C094DEED22F6037100CD166C /* Api.swift */,
+				C0A2A51C22F9E8DA006B2944 /* Firebase API */,
 				C094DEDB22F266E600CD166C /* Model */,
 				C094DEDE22F4895000CD166C /* Views */,
 				C094DED022F0055C00CD166C /* View Controllers */,
@@ -201,8 +202,21 @@
 				C094DEDF22F4899800CD166C /* PostTableViewCell.swift */,
 				C094DEE522F4E92700CD166C /* CommentTableViewCell.swift */,
 				C0A2A51A22F9CB18006B2944 /* HeaderProfileCollectionReusableView.swift */,
+				C0A2A51F22F9F8F2006B2944 /* PhotoCollectionViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C0A2A51C22F9E8DA006B2944 /* Firebase API */ = {
+			isa = PBXGroup;
+			children = (
+				C094DEED22F6037100CD166C /* Api.swift */,
+				C094DEE922F5FDEA00CD166C /* PostApi.swift */,
+				C094DEEB22F600EF00CD166C /* UserApi.swift */,
+				C094DEEF22F6040400CD166C /* CommentApi.swift */,
+				C0A2A51D22F9E913006B2944 /* UserPostApi.swift */,
+			);
+			path = "Firebase API";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,11 +346,13 @@
 				C094DEE422F4E90C00CD166C /* CommentViewController.swift in Sources */,
 				C094DEE222F4CCD900CD166C /* User.swift in Sources */,
 				C094DEB822EFBB7800CD166C /* SearchViewController.swift in Sources */,
+				C0A2A51E22F9E913006B2944 /* UserPostApi.swift in Sources */,
 				C0A2A51B22F9CB18006B2944 /* HeaderProfileCollectionReusableView.swift in Sources */,
 				C094DEEE22F6037100CD166C /* Api.swift in Sources */,
 				C094DEDD22F2670700CD166C /* Post.swift in Sources */,
 				C094DED222F022D200CD166C /* Util.swift in Sources */,
 				C094DEDA22F1EABD00CD166C /* ProgressHUD.m in Sources */,
+				C0A2A52022F9F8F2006B2944 /* PhotoCollectionViewCell.swift in Sources */,
 				C094DEB622EFBB6000CD166C /* HomeViewController.swift in Sources */,
 				C094DEE622F4E92700CD166C /* CommentTableViewCell.swift in Sources */,
 				C094DEBC22EFBBA300CD166C /* ActivityViewController.swift in Sources */,
