@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import FirebaseAuth
 
 class PostTableViewCell: UITableViewCell {
 
@@ -38,9 +39,13 @@ class PostTableViewCell: UITableViewCell {
         nameLabel.text    = ""
         captionLabel.text = ""
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTapCommentImageView))
-        commetImageView.addGestureRecognizer(tapGesture)
+        let tapGestureComment = UITapGestureRecognizer(target: self, action: #selector(self.handleTapCommentImageView))
+        commetImageView.addGestureRecognizer(tapGestureComment)
         commetImageView.isUserInteractionEnabled = true
+        
+        let tapGestureLike = UITapGestureRecognizer(target: self, action: #selector(self.handleTapLikeImageView))
+        likeImageView.addGestureRecognizer(tapGestureLike)
+        likeImageView.isUserInteractionEnabled = true
         
     }
     
@@ -49,12 +54,36 @@ class PostTableViewCell: UITableViewCell {
             homeVC?.performSegue(withIdentifier: "openCommentSegue", sender: id)
         }
     }
-
+    
+    @objc func handleTapLikeImageView() {
+        if let currentUser = Auth.auth().currentUser {
+            Api.User.REF_USERS.child(currentUser.uid).child("likes").child(post!.id!).observeSingleEvent(of: .value) { (snapshot) in
+                if let _ = snapshot.value as? NSNull {
+                    Api.User.REF_USERS.child(currentUser.uid).child("likes").child(self.post!.id!).setValue(true)
+                    self.likeImageView.image = UIImage(named: "likeSelected")
+                } else {
+                    Api.User.REF_USERS.child(currentUser.uid).child("likes").child(self.post!.id!).removeValue()
+                    self.likeImageView.image = UIImage(named: "like")
+                }
+            }
+        }
+    }
+    
     func updateView() {
         if let photoUrlString = post?.photoUrl, let photoUrl = URL(string: photoUrlString) {
             postImageView.sd_setImage(with: photoUrl)
         }
         captionLabel.text = post?.caption
+        
+        if let currentUser = Auth.auth().currentUser {
+            Api.User.REF_USERS.child(currentUser.uid).child("likes").child(post!.id!).observeSingleEvent(of: .value) { (snapshot) in
+                if let _ = snapshot.value as? NSNull {
+                    self.likeImageView.image = UIImage(named: "like")
+                } else {
+                    self.likeImageView.image = UIImage(named: "likeSelected")
+                }
+            }
+        }
     }
     
     func setupUserInfo() {
