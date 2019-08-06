@@ -9,6 +9,7 @@
 import UIKit
 import SDWebImage
 import FirebaseAuth
+import FirebaseDatabase
 
 class PostTableViewCell: UITableViewCell {
 
@@ -21,8 +22,9 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var likeCountButton: UIButton!
     @IBOutlet weak var captionLabel: UILabel!
     
-    var homeVC: HomeViewController?
-    var post: Post? {
+    var postRef : DatabaseReference!
+    var homeVC : HomeViewController?
+    var post : Post? {
         didSet {
             updateView()
         }
@@ -56,15 +58,37 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @objc func handleTapLikeImageView() {
-        if let currentUser = Auth.auth().currentUser {
-            Api.User.REF_USERS.child(currentUser.uid).child("likes").child(post!.id!).observeSingleEvent(of: .value) { (snapshot) in
-                if let _ = snapshot.value as? NSNull {
-                    Api.User.REF_USERS.child(currentUser.uid).child("likes").child(self.post!.id!).setValue(true)
-                    self.likeImageView.image = UIImage(named: "likeSelected")
+        postRef = Api.Post.REF_POSTS.child(post!.id!)
+        incrementLikes(forRef: postRef)
+    }
+    
+    func incrementLikes(forRef ref: DatabaseReference) {
+        ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+            if var post = currentData.value as? [String : AnyObject], let uid = Auth.auth().currentUser?.uid {
+                var likes: Dictionary<String, Bool>
+                likes = post["likes"] as? [String : Bool] ?? [:]
+                var likeCount = post["likeCount"] as? Int ?? 0
+                if let _ = likes[uid] {
+                    likeCount -= 1
+                    likes.removeValue(forKey: uid)
                 } else {
-                    Api.User.REF_USERS.child(currentUser.uid).child("likes").child(self.post!.id!).removeValue()
-                    self.likeImageView.image = UIImage(named: "like")
+                    likeCount += 1
+                    likes[uid] = true
                 }
+                post["likeCount"] = likeCount as AnyObject?
+                post["likes"] = likes as AnyObject?
+                
+                currentData.value = post
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }) { (error, committed, snapshot) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            if let dict = snapshot?.value as? [String: Any] {
+                let post = Post.transformPost(dict: dict, key: snapshot!.key)
+                self.updateLike(post: post)
             }
         }
     }
@@ -74,14 +98,30 @@ class PostTableViewCell: UITableViewCell {
             postImageView.sd_setImage(with: photoUrl)
         }
         captionLabel.text = post?.caption
+        updateLike(post: post!)
         
-        if let currentUser = Auth.auth().currentUser {
-            Api.User.REF_USERS.child(currentUser.uid).child("likes").child(post!.id!).observeSingleEvent(of: .value) { (snapshot) in
-                if let _ = snapshot.value as? NSNull {
-                    self.likeImageView.image = UIImage(named: "like")
-                } else {
-                    self.likeImageView.image = UIImage(named: "likeSelected")
-                }
+        Api.Post.REF_POSTS.child(post!.id!).observeSingleEvent(of: .value) { (snapshot) in
+            if let dict = snapshot.value as? [String: Any] {
+                let post = Post.transformPost(dict: dict, key: snapshot.key)
+                self.updateLike(post: post)
+            }
+        }
+        Api.Post.REF_POSTS.child(post!.id!).observe(.childChanged) { (snapshot) in
+            if let value = snapshot.value as? Int {
+                self.likeCountButton.setTitle("\(value) likes", for: UIControl.State.normal)
+            }
+        }
+    }
+    
+    func updateLike(post: Post) {
+        let imageName = post.likes == nil || !post.isLiked! ? "like" : "likeSelected"
+        likeImageView.image = UIImage(named: imageName)
+        
+        if let count = post.likeCount {
+            if count != 0 {
+                likeCountButton.setTitle("\(count) likes", for: UIControl.State.normal)
+            } else {
+                likeCountButton.setTitle("Be the first to like", for: UIControl.State.normal)
             }
         }
     }
@@ -105,5 +145,4 @@ class PostTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

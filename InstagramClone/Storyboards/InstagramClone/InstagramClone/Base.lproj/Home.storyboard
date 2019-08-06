@@ -93,11 +93,11 @@
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rB9-gU-rKE">
-                                                    <rect key="frame" x="8" y="406.66666666666669" width="85" height="20"/>
+                                                    <rect key="frame" x="8" y="406.66666666666669" width="88" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="u1x-wI-uFs"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                                     <state key="normal" title="Like this image">
                                                         <color key="titleColor" red="0.45489977520000002" green="0.34145282339999999" blue="0.574860394" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
