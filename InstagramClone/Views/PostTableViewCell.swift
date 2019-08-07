@@ -8,8 +8,6 @@
 
 import UIKit
 import SDWebImage
-import FirebaseAuth
-import FirebaseDatabase
 
 class PostTableViewCell: UITableViewCell {
 
@@ -22,7 +20,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var likeCountButton: UIButton!
     @IBOutlet weak var captionLabel: UILabel!
     
-    var postRef : DatabaseReference!
+//    var postRef : DatabaseReference!
     var homeVC : HomeViewController?
     var post : Post? {
         didSet {
@@ -30,7 +28,7 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
-    var user: User? {
+    var user: IUser? {
         didSet {
             setupUserInfo()
         }
@@ -58,58 +56,26 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @objc func handleTapLikeImageView() {
-        postRef = Api.Post.REF_POSTS.child(post!.id!)
-        incrementLikes(forRef: postRef)
-    }
-    
-    func incrementLikes(forRef ref: DatabaseReference) {
-        ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
-            if var post = currentData.value as? [String : AnyObject], let uid = Auth.auth().currentUser?.uid {
-                var likes: Dictionary<String, Bool>
-                likes = post["likes"] as? [String : Bool] ?? [:]
-                var likeCount = post["likeCount"] as? Int ?? 0
-                if let _ = likes[uid] {
-                    likeCount -= 1
-                    likes.removeValue(forKey: uid)
-                } else {
-                    likeCount += 1
-                    likes[uid] = true
-                }
-                post["likeCount"] = likeCount as AnyObject?
-                post["likes"] = likes as AnyObject?
-                
-                currentData.value = post
-                return TransactionResult.success(withValue: currentData)
-            }
-            return TransactionResult.success(withValue: currentData)
-        }) { (error, committed, snapshot) in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-            if let dict = snapshot?.value as? [String: Any] {
-                let post = Post.transformPost(dict: dict, key: snapshot!.key)
-                self.updateLike(post: post)
-            }
+        let postRef = Api.Post.REF_POSTS
+        Api.Post.incrementLikes(forRef: postRef, withId: post!.id!, onSuccess: { (post) in
+            self.updateLike(post: post)
+        }) { (errorMessage) in
+            ProgressHUD.showError(errorMessage)
         }
     }
     
     func updateView() {
+        captionLabel.text = post?.caption
         if let photoUrlString = post?.photoUrl, let photoUrl = URL(string: photoUrlString) {
             postImageView.sd_setImage(with: photoUrl)
         }
-        captionLabel.text = post?.caption
-        updateLike(post: post!)
         
-        Api.Post.REF_POSTS.child(post!.id!).observeSingleEvent(of: .value) { (snapshot) in
-            if let dict = snapshot.value as? [String: Any] {
-                let post = Post.transformPost(dict: dict, key: snapshot.key)
-                self.updateLike(post: post)
-            }
+        Api.Post.observePost(withId: post!.id!) { (post) in
+            self.updateLike(post: post)
         }
-        Api.Post.REF_POSTS.child(post!.id!).observe(.childChanged) { (snapshot) in
-            if let value = snapshot.value as? Int {
-                self.likeCountButton.setTitle("\(value) likes", for: UIControl.State.normal)
-            }
+        
+        Api.Post.observeLikeCount(withPostId: post!.id!) { (value) in
+            self.likeCountButton.setTitle("\(value) likes", for: UIControl.State.normal)
         }
     }
     

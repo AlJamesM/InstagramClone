@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class ProfileViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var user: User!
+    var user: IUser!
     var posts: [Post] = [Post]()
     
     override func viewDidLoad() {
@@ -33,7 +32,7 @@ class ProfileViewController: UIViewController {
     }
     
     func fetchUserPost() {
-        guard let currentUser = Auth.auth().currentUser else { return }
+        guard let currentUser = Api.User.CURRENT_USER else { return }
         Api.UserPost.REF_USER_POST.child(currentUser.uid).observe(.childAdded) { (snapshot) in
             Api.Post.observePost(withId: snapshot.key, completion: { (post) in
                 self.posts.append(post)

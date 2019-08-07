@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseAuth
 
 class CommentViewController: UIViewController {
 
@@ -20,7 +18,7 @@ class CommentViewController: UIViewController {
     var postId : String?
     
     var comments = [Comment]()
-    var users = [User]()
+    var users = [IUser]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +102,7 @@ class CommentViewController: UIViewController {
 
     @IBAction func sendButtonPressed(_ sender: UIButton) {
         guard let newCommentId = Api.Comment.REF_COMMENTS.childByAutoId().key else { return }
-        guard let currentUser = Auth.auth().currentUser else { return }
+        guard let currentUser = Api.User.CURRENT_USER else { return }
         let currentUserId = currentUser.uid
         
         Api.Comment.REF_COMMENTS.child(newCommentId).setValue(["uid" : currentUserId, "comment" : commentTextField.text!]) { (error, databaseRef) in

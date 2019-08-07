@@ -7,13 +7,9 @@
 //
 
 import UIKit
-import FirebaseStorage
-import FirebaseDatabase
-import FirebaseAuth
 
 class PhotoViewController: UIViewController {
 
-    
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var shareButton: UIButton!
@@ -21,14 +17,8 @@ class PhotoViewController: UIViewController {
     
     var selectedImage : UIImage?
     
-    //var ref : DatabaseReference!
-    var storageRef : StorageReference!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //ref = Database.database().reference()
-        storageRef = Storage.storage().reference()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTapImageView))
         photoView.addGestureRecognizer(tapGesture)
@@ -73,49 +63,14 @@ class PhotoViewController: UIViewController {
     
         ProgressHUD.show("Waiting", interaction: false)
         if let photoImage = self.selectedImage, let photoData = photoImage.jpegData(compressionQuality: 0.2) {
-            
-            //guard let user = Auth.auth().currentUser else { return }
-            let photoIdString = NSUUID().uuidString
-            
-            self.storageRef.child("posts").child(photoIdString).putData(photoData, metadata: nil, completion: { (metadata, error) in
-                if error != nil {
-                    ProgressHUD.showError(error!.localizedDescription)
-                    return
-                }
-                self.storageRef.child("posts").child(photoIdString).downloadURL(completion: { (url, error) in
-                    guard let downloadURL = url else { return }
-                    self.sendDataToDatabase(photoUrl : downloadURL.absoluteString)
-                })
-            })
+            HelperService.uploadDataToServer(data: photoData, caption: captionTextView.text!) {
+                self.captionTextView.text = ""
+                self.selectedImage = nil
+                self.photoView.image = UIImage(named: "Placeholder-image")
+                self.tabBarController?.selectedIndex = 0
+            }
         } else {
             ProgressHUD.showError("Image Error")
-        }
-    }
-    
-    func sendDataToDatabase(photoUrl : String) {
-        
-        guard let newPostId = Api.Post.REF_POSTS.childByAutoId().key else { return }
-        guard let currentUser = Auth.auth().currentUser else { return }
-        let currentUserId = currentUser.uid
-        
-        Api.Post.REF_POSTS.child(newPostId).setValue(["uid" : currentUserId, "photoUrl" : photoUrl, "caption" : captionTextView.text!]) { (error, databaseRef) in
-            if error != nil {
-                ProgressHUD.showError(error!.localizedDescription)
-            }
-            
-            let userPostRef = Api.UserPost.REF_USER_POST.child(currentUserId).child(newPostId)
-            userPostRef.setValue(true, withCompletionBlock: { (error, ref) in
-                if error != nil {
-                    ProgressHUD.showError(error!.localizedDescription)
-                    return
-                }
-            })
-            
-            ProgressHUD.showSuccess("Success")
-            self.captionTextView.text = ""
-            self.selectedImage = nil
-            self.photoView.image = UIImage(named: "Placeholder-image")
-            self.tabBarController?.selectedIndex = 0
         }
     }
 }

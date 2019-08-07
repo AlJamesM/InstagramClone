@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
-import FirebaseDatabase
 
 class HomeViewController: UIViewController {
 
@@ -16,14 +14,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     var posts = [Post]()
-    var users = [User]()
-    
-    var databaseRef : DatabaseReference!
+    var users = [IUser]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        databaseRef = Database.database().reference()
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -58,13 +52,11 @@ class HomeViewController: UIViewController {
     }
 
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
-        print("LogOut Pressed")
-        do {
-            try Auth.auth().signOut()
-        } catch let logOutError {
-            print(logOutError)
+        AuthService.logout(onSucccess: {
+            self.dismiss(animated: true, completion: nil)
+        }) { (errorMessage) in
+            ProgressHUD.showError(errorMessage)
         }
-        dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
