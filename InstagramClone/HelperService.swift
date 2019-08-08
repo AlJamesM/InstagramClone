@@ -31,7 +31,7 @@ class HelperService {
         
         let currentUserId = currentUser.uid
         
-        Api.Post.REF_POSTS.child(newPostId).setValue(["uid" : currentUserId, "photoUrl" : photoUrl, "caption" : caption]) { (error, databaseRef) in
+        Api.Post.REF_POSTS.child(newPostId).setValue(["uid" : currentUserId, "photoUrl" : photoUrl, "caption" : caption, "likecount": 0]) { (error, databaseRef) in
             if error != nil {
                 ProgressHUD.showError(error!.localizedDescription)
                 return
