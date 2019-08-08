@@ -59,6 +59,9 @@ class PostTableViewCell: UITableViewCell {
         let postRef = Api.Post.REF_POSTS
         Api.Post.incrementLikes(forRef: postRef, withId: post!.id!, onSuccess: { (post) in
             self.updateLike(post: post)
+            self.post?.likes = post.likes // Cache array in the viewCOntroller is updated due to reference passing
+            self.post?.isLiked = post.isLiked // Cache array in the viewCOntroller is updated due to reference passing
+            self.post?.likeCount = post.likeCount // Cache array in the viewCOntroller is updated due to reference passing
         }) { (errorMessage) in
             ProgressHUD.showError(errorMessage)
         }
@@ -70,13 +73,12 @@ class PostTableViewCell: UITableViewCell {
             postImageView.sd_setImage(with: photoUrl)
         }
         
-        Api.Post.observePost(withId: post!.id!) { (post) in
-            self.updateLike(post: post)
-        }
+        self.updateLike(post: self.post!)
+
         
-        Api.Post.observeLikeCount(withPostId: post!.id!) { (value) in
-            self.likeCountButton.setTitle("\(value) likes", for: UIControl.State.normal)
-        }
+//        Api.Post.observeLikeCount(withPostId: post!.id!) { (value) in
+//            self.likeCountButton.setTitle("\(value) likes", for: UIControl.State.normal)
+//        }
     }
     
     func updateLike(post: Post) {
