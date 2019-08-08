@@ -44,6 +44,9 @@
 		C0A2A52022F9F8F2006B2944 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A51F22F9F8F2006B2944 /* PhotoCollectionViewCell.swift */; };
 		C0A2A52222FA1593006B2944 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52122FA1593006B2944 /* AuthService.swift */; };
 		C0A2A52422FA185B006B2944 /* HelperService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52322FA185B006B2944 /* HelperService.swift */; };
+		C0A2A52822FB54DA006B2944 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52722FB54DA006B2944 /* DiscoverViewController.swift */; };
+		C0A2A52A22FB550B006B2944 /* DiscoverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52922FB550B006B2944 /* DiscoverTableViewCell.swift */; };
+		C0A2A52C22FB6BD0006B2944 /* FollowApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52B22FB6BD0006B2944 /* FollowApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +91,9 @@
 		C0A2A51F22F9F8F2006B2944 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		C0A2A52122FA1593006B2944 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C0A2A52322FA185B006B2944 /* HelperService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperService.swift; sourceTree = "<group>"; };
+		C0A2A52722FB54DA006B2944 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
+		C0A2A52922FB550B006B2944 /* DiscoverTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewCell.swift; sourceTree = "<group>"; };
+		C0A2A52B22FB6BD0006B2944 /* FollowApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowApi.swift; sourceTree = "<group>"; };
 		C8B5A6240B1E1F35EFCF6C92 /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB604C441820DF9A3F9C77CC /* Pods-InstagramClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.release.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,6 +194,7 @@
 				C094DEB922EFBB8C00CD166C /* PhotoViewController.swift */,
 				C094DEBB22EFBBA300CD166C /* ActivityViewController.swift */,
 				C094DEBD22EFBBBA00CD166C /* ProfileViewController.swift */,
+				C0A2A52722FB54DA006B2944 /* DiscoverViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -209,6 +216,7 @@
 				C094DEE522F4E92700CD166C /* CommentTableViewCell.swift */,
 				C0A2A51A22F9CB18006B2944 /* HeaderProfileCollectionReusableView.swift */,
 				C0A2A51F22F9F8F2006B2944 /* PhotoCollectionViewCell.swift */,
+				C0A2A52922FB550B006B2944 /* DiscoverTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -221,6 +229,7 @@
 				C094DEEB22F600EF00CD166C /* UserApi.swift */,
 				C094DEEF22F6040400CD166C /* CommentApi.swift */,
 				C0A2A51D22F9E913006B2944 /* UserPostApi.swift */,
+				C0A2A52B22FB6BD0006B2944 /* FollowApi.swift */,
 			);
 			path = "Firebase API";
 			sourceTree = "<group>";
@@ -354,6 +363,7 @@
 				C094DEB822EFBB7800CD166C /* SearchViewController.swift in Sources */,
 				C0A2A51E22F9E913006B2944 /* UserPostApi.swift in Sources */,
 				C0A2A51B22F9CB18006B2944 /* HeaderProfileCollectionReusableView.swift in Sources */,
+				C0A2A52822FB54DA006B2944 /* DiscoverViewController.swift in Sources */,
 				C094DEEE22F6037100CD166C /* Api.swift in Sources */,
 				C094DEDD22F2670700CD166C /* Post.swift in Sources */,
 				C094DED222F022D200CD166C /* Util.swift in Sources */,
@@ -367,7 +377,9 @@
 				C0A2A52222FA1593006B2944 /* AuthService.swift in Sources */,
 				C094DEF022F6040400CD166C /* CommentApi.swift in Sources */,
 				C094DEE822F5C74A00CD166C /* Comment.swift in Sources */,
+				C0A2A52C22FB6BD0006B2944 /* FollowApi.swift in Sources */,
 				C094DEBE22EFBBBA00CD166C /* ProfileViewController.swift in Sources */,
+				C0A2A52A22FB550B006B2944 /* DiscoverTableViewCell.swift in Sources */,
 				C094DEB422EFBB3900CD166C /* SignUpViewController.swift in Sources */,
 				C094DEB222EFBB2300CD166C /* SignInViewController.swift in Sources */,
 				C0A2A52422FA185B006B2944 /* HelperService.swift in Sources */,

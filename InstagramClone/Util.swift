@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+struct CustomColor {
+    static let Main = UIColor(red: 116/255, green: 87/255, blue: 147/255, alpha: 1)
+}
+
 func instaTextField( _ placeholderText : String, _ modifyTextField : inout UITextField ) {
     modifyTextField.backgroundColor = .clear
     modifyTextField.tintColor = .white
