@@ -34,7 +34,10 @@ class HelperService {
         Api.Post.REF_POSTS.child(newPostId).setValue(["uid" : currentUserId, "photoUrl" : photoUrl, "caption" : caption]) { (error, databaseRef) in
             if error != nil {
                 ProgressHUD.showError(error!.localizedDescription)
+                return
             }
+            
+            Api.Feed.REF_FEED.child(Api.User.CURRENT_USER!.uid).child(newPostId).setValue(true)
             
             let userPostRef = Api.UserPost.REF_USER_POST.child(currentUserId).child(newPostId)
             userPostRef.setValue(true, withCompletionBlock: { (error, ref) in

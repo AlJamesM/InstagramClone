@@ -47,6 +47,8 @@
 		C0A2A52822FB54DA006B2944 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52722FB54DA006B2944 /* DiscoverViewController.swift */; };
 		C0A2A52A22FB550B006B2944 /* DiscoverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52922FB550B006B2944 /* DiscoverTableViewCell.swift */; };
 		C0A2A52C22FB6BD0006B2944 /* FollowApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52B22FB6BD0006B2944 /* FollowApi.swift */; };
+		C0A2A52E22FBCF3F006B2944 /* FeedApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52D22FBCF3F006B2944 /* FeedApi.swift */; };
+		C0A2A53022FC6FB3006B2944 /* SearchUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52F22FC6FB3006B2944 /* SearchUserViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +96,8 @@
 		C0A2A52722FB54DA006B2944 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		C0A2A52922FB550B006B2944 /* DiscoverTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewCell.swift; sourceTree = "<group>"; };
 		C0A2A52B22FB6BD0006B2944 /* FollowApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowApi.swift; sourceTree = "<group>"; };
+		C0A2A52D22FBCF3F006B2944 /* FeedApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedApi.swift; sourceTree = "<group>"; };
+		C0A2A52F22FC6FB3006B2944 /* SearchUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserViewController.swift; sourceTree = "<group>"; };
 		C8B5A6240B1E1F35EFCF6C92 /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB604C441820DF9A3F9C77CC /* Pods-InstagramClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.release.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -191,6 +195,7 @@
 				C094DEB522EFBB6000CD166C /* HomeViewController.swift */,
 				C094DEE322F4E90C00CD166C /* CommentViewController.swift */,
 				C094DEB722EFBB7800CD166C /* SearchViewController.swift */,
+				C0A2A52F22FC6FB3006B2944 /* SearchUserViewController.swift */,
 				C094DEB922EFBB8C00CD166C /* PhotoViewController.swift */,
 				C094DEBB22EFBBA300CD166C /* ActivityViewController.swift */,
 				C094DEBD22EFBBBA00CD166C /* ProfileViewController.swift */,
@@ -229,6 +234,7 @@
 				C094DEEB22F600EF00CD166C /* UserApi.swift */,
 				C094DEEF22F6040400CD166C /* CommentApi.swift */,
 				C0A2A51D22F9E913006B2944 /* UserPostApi.swift */,
+				C0A2A52D22FBCF3F006B2944 /* FeedApi.swift */,
 				C0A2A52B22FB6BD0006B2944 /* FollowApi.swift */,
 			);
 			path = "Firebase API";
@@ -365,6 +371,8 @@
 				C0A2A51B22F9CB18006B2944 /* HeaderProfileCollectionReusableView.swift in Sources */,
 				C0A2A52822FB54DA006B2944 /* DiscoverViewController.swift in Sources */,
 				C094DEEE22F6037100CD166C /* Api.swift in Sources */,
+				C0A2A53022FC6FB3006B2944 /* SearchUserViewController.swift in Sources */,
+				C0A2A52E22FBCF3F006B2944 /* FeedApi.swift in Sources */,
 				C094DEDD22F2670700CD166C /* Post.swift in Sources */,
 				C094DED222F022D200CD166C /* Util.swift in Sources */,
 				C094DEDA22F1EABD00CD166C /* ProgressHUD.m in Sources */,

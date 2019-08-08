@@ -119,7 +119,8 @@ class SignUpViewController: UIViewController {
                 guard let _ = metadata else { return }
                 self.storageRef.child("profileImage").child(user.uid).downloadURL(completion: { (url, error) in
                     guard let downloadURL = url else { return }
-                    self.ref.child("users").child(user.uid).setValue(["username" : userName, "email" : userEmail, "profileImageUrl" : downloadURL.absoluteString])
+                    let trimmedUsername = userName.trimmingCharacters(in: .whitespacesAndNewlines)
+                    self.ref.child("users").child(user.uid).setValue(["username" : trimmedUsername, "username_lowercase" : trimmedUsername.lowercased(),"email" : userEmail, "profileImageUrl" : downloadURL.absoluteString])
                     
                     ProgressHUD.showSuccess("Success")
                     self.dismiss(animated: true, completion: nil)
