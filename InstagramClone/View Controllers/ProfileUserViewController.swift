@@ -16,6 +16,8 @@ class ProfileUserViewController: UIViewController {
     var posts: [Post] = [Post]()
     var userId : String = ""
     
+    var delegate: HeaderProfileCollectionReusableViewDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,8 +50,8 @@ class ProfileUserViewController: UIViewController {
     }
     
     func fetchUserPost() {
-        Api.UserPost.REF_USER_POST.child(userId).observe(.childAdded) { (snapshot) in
-            Api.Post.observePost(withId: snapshot.key, completion: { (post) in
+        Api.UserPost.fetchUserPost(userId: userId) { (key) in
+            Api.Post.observePost(withId: key, completion: { (post) in
                 self.posts.append(post)
                 self.collectionView.reloadData()
             })
@@ -74,6 +76,7 @@ extension ProfileUserViewController: UICollectionViewDataSource, UICollectionVie
         let headerViewCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "collectionViewHeaderId", for: indexPath) as! HeaderProfileCollectionReusableView
         if let user = self.user {
             headerViewCell.user = user
+            headerViewCell.delegate = self.delegate
         }
         return headerViewCell
     }

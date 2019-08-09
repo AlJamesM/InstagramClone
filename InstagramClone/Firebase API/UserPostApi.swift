@@ -11,6 +11,18 @@ import FirebaseDatabase
 
 class UserPostApi {
     
-    var REF_USER_POST = Database.database().reference().child("userPost")
+    var REF_USER_POSTS = Database.database().reference().child("userPost")
 
+    func fetchUserPost(userId: String, completion: @escaping (String) -> Void) {
+        REF_USER_POSTS.child(userId).observe(.childAdded) { (snapshot) in
+            completion(snapshot.key)
+        }
+    }
+    
+    func fetchCountUserPost(userId: String, completion: @escaping (Int) -> Void ) {
+        REF_USER_POSTS.child(userId).observe(.value) { (snapshot) in
+            let count = Int(snapshot.childrenCount)
+            completion(count)
+        }
+    }
 }

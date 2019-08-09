@@ -14,7 +14,7 @@ class FollowApi {
     var REF_FOLLOWING = Database.database().reference().child("following")
     
     func followAction(withUser id: String) {
-        Api.UserPost.REF_USER_POST.child(id).observeSingleEvent(of: .value) { (snapshot) in
+        Api.UserPost.REF_USER_POSTS.child(id).observeSingleEvent(of: .value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 for key in dict.keys { // iterate all keys
                     Database.database().reference().child("feed").child(Api.User.CURRENT_USER!.uid).child(key).setValue(true)
@@ -26,7 +26,7 @@ class FollowApi {
     }
     
     func unFollowAction(withUser id: String) {
-        Api.UserPost.REF_USER_POST.child(id).observeSingleEvent(of: .value) { (snapshot) in
+        Api.UserPost.REF_USER_POSTS.child(id).observeSingleEvent(of: .value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 for key in dict.keys { // iterate all keys
                     Database.database().reference().child("feed").child(Api.User.CURRENT_USER!.uid).child(key).removeValue()
@@ -44,6 +44,20 @@ class FollowApi {
             } else {
                 completed(true)
             }
+        }
+    }
+    
+    func fetchCountFollowing(userId: String, completion: @escaping (Int) -> Void ) {
+        REF_FOLLOWING.child(userId).observe(.value) { (snapshot) in
+            let count = Int(snapshot.childrenCount)
+            completion(count)
+        }
+    }
+    
+    func fetchCountFollowers(userId: String, completion: @escaping (Int) -> Void ) {
+        REF_FOLLOWERS.child(userId).observe(.value) { (snapshot) in
+            let count = Int(snapshot.childrenCount)
+            completion(count)
         }
     }
 }

@@ -49,6 +49,7 @@ class DiscoverViewController: UIViewController {
             let userId = sender as! String
             let profileVC = segue.destination as! ProfileUserViewController
             profileVC.userId = userId
+            profileVC.delegate = self
         }
     }
 }
@@ -71,5 +72,16 @@ extension DiscoverViewController : UITableViewDelegate, UITableViewDataSource {
 extension DiscoverViewController : DiscoverTableViewCellDelegate {
     func openProfileVC(userId: String) {
         self.performSegue(withIdentifier: "UserProfileSegueId", sender: userId)
+    }
+}
+
+extension DiscoverViewController: HeaderProfileCollectionReusableViewDelegate {
+    func updateFollowButton(forUser user: IUser) {
+        for u in self.users {
+            if u.id == user.id {
+                u.isFollowing = user.isFollowing
+                self.tableView.reloadData()
+            }
+        }
     }
 }

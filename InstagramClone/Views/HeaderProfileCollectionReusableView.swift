@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HeaderProfileCollectionReusableViewDelegate {
+    func updateFollowButton(forUser user: IUser)
+}
+
 class HeaderProfileCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var profileImageView: UIImageView!
@@ -17,6 +21,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var followersCountLabel: UILabel!
     @IBOutlet weak var profileButton: UIButton!
     
+    var delegate: HeaderProfileCollectionReusableViewDelegate?
     var user: IUser? {
         didSet {
             updateView()
@@ -29,6 +34,19 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
             let photoUrl = URL(string: photoUrlString)
             self.profileImageView.sd_setImage(with: photoUrl)
         }
+        
+        Api.UserPost.fetchCountUserPost(userId: user!.id!) { (count) in
+            self.postCountLabel.text = "\(count)"
+        }
+        
+        Api.Follow.fetchCountFollowing(userId: user!.id!) { (count) in
+            self.followingCountLabel.text = "\(count)"
+        }
+        
+        Api.Follow.fetchCountFollowers(userId: user!.id!) { (count) in
+            self.followersCountLabel.text = "\(count)"
+        }
+        
         if user?.id == Api.User.CURRENT_USER?.uid {
             self.profileButton.setTitle("Edit Profile", for: UIControl.State.normal)
         } else {
@@ -72,12 +90,13 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
         Api.Follow.followAction(withUser: user!.id!)
         configureUnFollowing()
         user!.isFollowing! = true // Updates by reference the array content in the controller
-        
+        delegate?.updateFollowButton(forUser: user!)
     }
     
     @objc func unFollowAction() {
         Api.Follow.unFollowAction(withUser: user!.id!)
         configureFollowing()
         user!.isFollowing! = false // Updates by reference the array content in the controller
+        delegate?.updateFollowButton(forUser: user!)
     }
 }
