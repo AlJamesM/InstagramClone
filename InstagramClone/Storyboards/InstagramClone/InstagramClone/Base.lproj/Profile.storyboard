@@ -184,6 +184,7 @@
                                         <outlet property="followingCountLabel" destination="7Pn-Nr-17O" id="Nc5-0n-Fav"/>
                                         <outlet property="nameLabel" destination="32r-tr-Wry" id="6WR-bV-dPP"/>
                                         <outlet property="postCountLabel" destination="t3f-cL-vsR" id="LNr-q6-YCr"/>
+                                        <outlet property="profileButton" destination="v3t-xN-9aU" id="iCa-xn-dPt"/>
                                         <outlet property="profileImageView" destination="mbf-2i-Y08" id="crO-B5-MvK"/>
                                     </connections>
                                 </collectionReusableView>
@@ -407,9 +408,6 @@
                                                             <integer key="value" value="10"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="editProfilePressed:" destination="8Mc-Ah-ELC" eventType="touchUpInside" id="Te5-Lb-a40"/>
-                                                    </connections>
                                                 </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="Idq-wc-YR3">
                                                     <rect key="frame" x="0.0" y="0.0" width="266" height="60"/>
@@ -506,6 +504,7 @@
                                         <outlet property="followingCountLabel" destination="jjY-UC-G8Q" id="DVO-hf-EZ8"/>
                                         <outlet property="nameLabel" destination="h7X-sZ-qDd" id="XPa-Y2-MNN"/>
                                         <outlet property="postCountLabel" destination="P98-k2-BsA" id="ZhQ-he-8vI"/>
+                                        <outlet property="profileButton" destination="qEy-7E-l34" id="B9m-6F-VCC"/>
                                         <outlet property="profileImageView" destination="dhR-JG-yY5" id="0lQ-Tr-KNQ"/>
                                     </connections>
                                 </collectionReusableView>

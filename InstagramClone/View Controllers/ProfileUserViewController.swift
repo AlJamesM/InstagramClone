@@ -38,9 +38,12 @@ class ProfileUserViewController: UIViewController {
     
     func fetchUser() {
         Api.User.observeUser(uid: userId) { (user) in
-            self.user = user
-            self.navigationItem.title = self.user.username
-            self.collectionView.reloadData()
+            Api.Follow.isFollowing(userId: user.id!, completed: { (value) in
+                user.isFollowing = value
+                self.user = user
+                self.navigationItem.title = self.user.username
+                self.collectionView.reloadData()
+            })
         }
     }
     
