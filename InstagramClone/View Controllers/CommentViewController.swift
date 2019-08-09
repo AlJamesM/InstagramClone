@@ -128,6 +128,15 @@ class CommentViewController: UIViewController {
         self.commentTextField.text = ""
         self.sendButton.isEnabled = false
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "commentToProfileSegue" {
+            let userId = sender as! String
+            let profileVC = segue.destination as! ProfileUserViewController
+            profileVC.userId = userId
+        }
+    }
+    
 }
 
 extension CommentViewController : UITableViewDelegate, UITableViewDataSource {
@@ -140,10 +149,17 @@ extension CommentViewController : UITableViewDelegate, UITableViewDataSource {
         
         cell.comment = comments[indexPath.row]
         cell.user = users[indexPath.row]
+        cell.delegate = self
         return cell
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
+    }
+}
+
+extension CommentViewController : CommentTableViewCellDelegate {
+    func openProfileVC(userId: String) {
+        self.performSegue(withIdentifier: "commentToProfileSegue", sender: userId)
     }
 }

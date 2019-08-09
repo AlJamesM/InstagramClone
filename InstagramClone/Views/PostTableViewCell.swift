@@ -9,6 +9,11 @@
 import UIKit
 import SDWebImage
 
+protocol PostTableViewCellDelegate {
+    func goToCommentVC(postId: String)
+    func openProfileVC(userId: String)
+}
+
 class PostTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profielmageView: UIImageView!
@@ -20,8 +25,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var likeCountButton: UIButton!
     @IBOutlet weak var captionLabel: UILabel!
     
-//    var postRef : DatabaseReference!
-    var homeVC : HomeViewController?
+    var delegate: PostTableViewCellDelegate?
     var post : Post? {
         didSet {
             updateView()
@@ -47,11 +51,21 @@ class PostTableViewCell: UITableViewCell {
         likeImageView.addGestureRecognizer(tapGestureLike)
         likeImageView.isUserInteractionEnabled = true
         
+        let tapGestureUsername = UITapGestureRecognizer(target: self, action: #selector(self.handleTapUsername))
+        nameLabel.addGestureRecognizer(tapGestureUsername)
+        nameLabel.isUserInteractionEnabled = true
+        
+    }
+    
+    @objc func handleTapUsername() {
+        if let id = user?.id {
+            self.delegate?.openProfileVC(userId: id)
+        }
     }
     
     @objc func handleTapCommentImageView() {
         if let id = post?.id {
-            homeVC?.performSegue(withIdentifier: "openCommentSegue", sender: id)
+            delegate?.goToCommentVC(postId: id)
         }
     }
     
@@ -72,13 +86,7 @@ class PostTableViewCell: UITableViewCell {
         if let photoUrlString = post?.photoUrl, let photoUrl = URL(string: photoUrlString) {
             postImageView.sd_setImage(with: photoUrl)
         }
-        
         self.updateLike(post: self.post!)
-
-        
-//        Api.Post.observeLikeCount(withPostId: post!.id!) { (value) in
-//            self.likeCountButton.setTitle("\(value) likes", for: UIControl.State.normal)
-//        }
     }
     
     func updateLike(post: Post) {
@@ -106,11 +114,5 @@ class PostTableViewCell: UITableViewCell {
         super.prepareForReuse()
         profielmageView.image = UIImage(named: "placeholderImg")
         nameLabel.text = ""
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 }

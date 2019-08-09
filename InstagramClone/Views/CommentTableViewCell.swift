@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol CommentTableViewCellDelegate {
+    func openProfileVC(userId: String)
+}
+
 class CommentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
     
+    var delegate: CommentTableViewCellDelegate?
     
     var comment: Comment? {
         didSet {
@@ -31,6 +36,16 @@ class CommentTableViewCell: UITableViewCell {
         super.awakeFromNib()
         usernameLabel.text = ""
         commentLabel.text = ""
+        
+        let tapGestureUsername = UITapGestureRecognizer(target: self, action: #selector(self.handleTapUsername))
+        usernameLabel.addGestureRecognizer(tapGestureUsername)
+        usernameLabel.isUserInteractionEnabled = true
+    }
+    
+    @objc func handleTapUsername() {
+        if let id = user?.id {
+            self.delegate?.openProfileVC(userId: id)
+        }
     }
 
     func updateView() {

@@ -32,8 +32,6 @@ class SearchViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
-    
-    
 }
 
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {

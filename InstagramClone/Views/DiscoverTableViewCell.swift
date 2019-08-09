@@ -8,12 +8,18 @@
 
 import UIKit
 
+protocol DiscoverTableViewCellDelegate {
+    func openProfileVC(userId: String)
+}
+
 class DiscoverTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
+    
+    var delegate: DiscoverTableViewCellDelegate?
     
     var user: IUser? {
         didSet {
@@ -24,7 +30,18 @@ class DiscoverTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        let tapGestureUsername = UITapGestureRecognizer(target: self, action: #selector(self.handleTapUsername))
+        nameLabel.addGestureRecognizer(tapGestureUsername)
+        nameLabel.isUserInteractionEnabled = true
+        
     }
+    
+    @objc func handleTapUsername() {
+        if let id = user?.id {
+            self.delegate?.openProfileVC(userId: id)
+        }
+    }
+    
     
     func updateView() {
         nameLabel.text = user?.username

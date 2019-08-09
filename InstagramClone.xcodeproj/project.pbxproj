@@ -49,6 +49,7 @@
 		C0A2A52C22FB6BD0006B2944 /* FollowApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52B22FB6BD0006B2944 /* FollowApi.swift */; };
 		C0A2A52E22FBCF3F006B2944 /* FeedApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52D22FBCF3F006B2944 /* FeedApi.swift */; };
 		C0A2A53022FC6FB3006B2944 /* SearchUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A52F22FC6FB3006B2944 /* SearchUserViewController.swift */; };
+		C0A2A53222FCB8EB006B2944 /* ProfileUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A53122FCB8EB006B2944 /* ProfileUserViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		C0A2A52B22FB6BD0006B2944 /* FollowApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowApi.swift; sourceTree = "<group>"; };
 		C0A2A52D22FBCF3F006B2944 /* FeedApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedApi.swift; sourceTree = "<group>"; };
 		C0A2A52F22FC6FB3006B2944 /* SearchUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserViewController.swift; sourceTree = "<group>"; };
+		C0A2A53122FCB8EB006B2944 /* ProfileUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserViewController.swift; sourceTree = "<group>"; };
 		C8B5A6240B1E1F35EFCF6C92 /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB604C441820DF9A3F9C77CC /* Pods-InstagramClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.release.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,6 +201,7 @@
 				C094DEB922EFBB8C00CD166C /* PhotoViewController.swift */,
 				C094DEBB22EFBBA300CD166C /* ActivityViewController.swift */,
 				C094DEBD22EFBBBA00CD166C /* ProfileViewController.swift */,
+				C0A2A53122FCB8EB006B2944 /* ProfileUserViewController.swift */,
 				C0A2A52722FB54DA006B2944 /* DiscoverViewController.swift */,
 			);
 			path = "View Controllers";
@@ -388,6 +391,7 @@
 				C0A2A52C22FB6BD0006B2944 /* FollowApi.swift in Sources */,
 				C094DEBE22EFBBBA00CD166C /* ProfileViewController.swift in Sources */,
 				C0A2A52A22FB550B006B2944 /* DiscoverTableViewCell.swift in Sources */,
+				C0A2A53222FCB8EB006B2944 /* ProfileUserViewController.swift in Sources */,
 				C094DEB422EFBB3900CD166C /* SignUpViewController.swift in Sources */,
 				C094DEB222EFBB2300CD166C /* SignInViewController.swift in Sources */,
 				C0A2A52422FA185B006B2944 /* HelperService.swift in Sources */,

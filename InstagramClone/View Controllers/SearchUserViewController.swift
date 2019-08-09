@@ -25,6 +25,7 @@ class SearchUserViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.allowsSelection = false
         
         let searchItem = UIBarButtonItem(customView: searchBar)
         self.navigationItem.rightBarButtonItem = searchItem
@@ -53,6 +54,14 @@ class SearchUserViewController: UIViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "profileFromDiscoverSegue" {
+            let userId = sender as! String
+            let profileVC = segue.destination as! ProfileUserViewController
+            profileVC.userId = userId
+        }
+    }
 }
 
 extension SearchUserViewController: UISearchBarDelegate {
@@ -74,9 +83,13 @@ extension SearchUserViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "discoverCellReuseId", for: indexPath) as! DiscoverTableViewCell
         
         cell.user = users[indexPath.row]
-        
+        cell.delegate = self
         return cell
     }
 }
 
-
+extension SearchUserViewController: DiscoverTableViewCellDelegate {
+    func openProfileVC(userId: String) {
+        self.performSegue(withIdentifier: "profileFromDiscoverSegue", sender: userId)
+    }
+}

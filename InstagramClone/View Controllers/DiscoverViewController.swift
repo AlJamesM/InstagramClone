@@ -43,6 +43,14 @@ class DiscoverViewController: UIViewController {
             })
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "UserProfileSegueId" {
+            let userId = sender as! String
+            let profileVC = segue.destination as! ProfileUserViewController
+            profileVC.userId = userId
+        }
+    }
 }
 
 extension DiscoverViewController : UITableViewDelegate, UITableViewDataSource {
@@ -54,7 +62,14 @@ extension DiscoverViewController : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "discoverCellReuseId", for: indexPath) as! DiscoverTableViewCell
     
         cell.user = users[indexPath.row]
+        cell.delegate = self
         
         return cell
+    }
+}
+
+extension DiscoverViewController : DiscoverTableViewCellDelegate {
+    func openProfileVC(userId: String) {
+        self.performSegue(withIdentifier: "UserProfileSegueId", sender: userId)
     }
 }
