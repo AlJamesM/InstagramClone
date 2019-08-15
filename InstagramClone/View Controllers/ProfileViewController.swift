@@ -60,6 +60,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         let headerViewCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "collectionViewHeaderId", for: indexPath) as! HeaderProfileCollectionReusableView
         if let user = self.user {
             headerViewCell.user = user
+            headerViewCell.delegateSetting = self
         }
         return headerViewCell
     }
@@ -76,5 +77,11 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+extension ProfileViewController: HeaderProfileCollectionReusableViewDelegateSwitchSettingVC {
+    func goToSettingVC() {
+        performSegue(withIdentifier: "ProfileSettingSegue", sender: nil)
     }
 }

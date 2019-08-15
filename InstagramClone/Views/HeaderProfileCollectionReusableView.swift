@@ -12,6 +12,10 @@ protocol HeaderProfileCollectionReusableViewDelegate {
     func updateFollowButton(forUser user: IUser)
 }
 
+protocol HeaderProfileCollectionReusableViewDelegateSwitchSettingVC {
+    func goToSettingVC()
+}
+
 class HeaderProfileCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var profileImageView: UIImageView!
@@ -22,6 +26,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var profileButton: UIButton!
     
     var delegate: HeaderProfileCollectionReusableViewDelegate?
+    var delegateSetting: HeaderProfileCollectionReusableViewDelegateSwitchSettingVC?
     var user: IUser? {
         didSet {
             updateView()
@@ -49,9 +54,16 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
         
         if user?.id == Api.User.CURRENT_USER?.uid {
             self.profileButton.setTitle("Edit Profile", for: UIControl.State.normal)
+            
+            profileButton.addTarget(self, action: #selector(self.goToSettingVC), for: UIControl.Event.touchUpInside)
         } else {
             updateStateButton()
         }
+    }
+    
+    @objc func goToSettingVC() {
+        print("Test")
+        delegateSetting?.goToSettingVC()
     }
     
     func updateStateButton() {

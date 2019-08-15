@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		976EB895F7728473A7879897 /* Pods_InstagramClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B5A6240B1E1F35EFCF6C92 /* Pods_InstagramClone.framework */; };
+		C01BF01D23026F7D00D2E08F /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01BF01C23026F7D00D2E08F /* SettingTableViewController.swift */; };
 		C094DEA022EFB1D700CD166C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C094DE9F22EFB1D700CD166C /* AppDelegate.swift */; };
 		C094DEA522EFB1D700CD166C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C094DEA322EFB1D700CD166C /* Main.storyboard */; };
 		C094DEA722EFB1DA00CD166C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C094DEA622EFB1DA00CD166C /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		3970DC2F5F81E03F0C92D24E /* Pods-InstagramClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.debug.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.debug.xcconfig"; sourceTree = "<group>"; };
+		C01BF01C23026F7D00D2E08F /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		C094DE9C22EFB1D700CD166C /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C094DE9F22EFB1D700CD166C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C094DEA422EFB1D700CD166C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				C094DEBD22EFBBBA00CD166C /* ProfileViewController.swift */,
 				C0A2A53122FCB8EB006B2944 /* ProfileUserViewController.swift */,
 				C0A2A52722FB54DA006B2944 /* DiscoverViewController.swift */,
+				C01BF01C23026F7D00D2E08F /* SettingTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C01BF01D23026F7D00D2E08F /* SettingTableViewController.swift in Sources */,
 				C094DEE422F4E90C00CD166C /* CommentViewController.swift in Sources */,
 				C094DEE222F4CCD900CD166C /* IUser.swift in Sources */,
 				C094DEB822EFBB7800CD166C /* SearchViewController.swift in Sources */,
